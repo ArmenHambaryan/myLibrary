@@ -15,11 +15,12 @@
 %>
 
 Please Update Book`s Data:
-<form method="post" action="/books/edit">
-    <input type="hidden" name="bookId" value="<%=book.getId()%>">
+<form method="post" action="/books/edit" enctype="multipart/form-data">
+    <input type="hidden" name="bookId" value="<%=book.getId()%>"><br>
     <input type="text" name="title" value="<%=book.getTitle()%>"/><br>
     <input type="text" name="description" value="<%=book.getDescription()%>"><br>
-    <input type="number" name="price" value="<%=book.getPrice()%>"/>
+    <input type="number" name="price" value="<%=book.getPrice()%>"/><br>
+
 
     <select name="authorId">
         <%

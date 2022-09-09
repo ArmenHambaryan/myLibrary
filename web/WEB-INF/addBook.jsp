@@ -11,16 +11,20 @@
     List<Author> authorList = (List<Author>) request.getAttribute("authors");
 %>
 
-<form method="post" action="${pageContext.request.contextPath}/books/add">
+<form method="post" action="/books/add" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="title"><br>
     <input type="text" name="description" placeholder="description"><br>
     <input type="number" name="price" placeholder="price">
 
     <select name="authorId">
         <%for (Author author : authorList) {%>
-        <option value="<%=author.getId()%>"><%=author.getName() + " " + author.getSurname() + " " + author.getEmail()%></option>
+        <option value="<%=author.getId()%>"><%=author.getName() + " " + author.getSurname() + " " + author.getEmail()%>
+        </option>
         <%}%>
     </select>
+    <br>
+    Profile Picture:<br>
+    <input type="file" name="profilePic">
 
     <input type="submit" value="add">
 </form>

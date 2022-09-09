@@ -16,13 +16,14 @@ public class BookManager {
     private final AuthorManager authorManager = new AuthorManager();
 
     public void add(Book book) {
-        String sql = "INSERT INTO book(title, description, price, author_id) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO book(title, description, price, author_id, profile_pic) VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, book.getTitle());
             ps.setString(2, book.getDescription());
             ps.setDouble(3, book.getPrice());
             ps.setInt(4, book.getAuthor().getId());
+            ps.setString(5, book.getProfilePic());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,6 +66,7 @@ public class BookManager {
         book.setDescription(resultSet.getString(3));
         book.setPrice(resultSet.getDouble(4));
         int authorId = resultSet.getInt(5);
+        book.setProfilePic(resultSet.getString(6));
         Author author = authorManager.getById(authorId);
         book.setAuthor(author);
 
@@ -82,7 +84,7 @@ public class BookManager {
     }
 
     public void edit(Book book) {
-        String sql = "UPDATE  book SET title=?, description=?, price=?, author_id=? WHERE id = ?";
+        String sql = "UPDATE  book SET title=?, description=?, price=?, author_id=?, profile_pic=? WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, book.getTitle());
@@ -90,6 +92,7 @@ public class BookManager {
             ps.setDouble(3, book.getPrice());
             ps.setInt(4, book.getAuthor().getId());
             ps.setInt(5, book.getId());
+            ps.setString(6, book.getProfilePic());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

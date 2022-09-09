@@ -12,12 +12,14 @@ Please update Author`s data:
     Author author = (Author) request.getAttribute("author");
 %>
 
-<form method="post" action="${pageContext.request.contextPath}/authors/edit">
-    <input type="hidden" name="authorId" value="<%=author.getId()%>">
-    <input type="text" name="name" value="<%=author.getName()%>">
-    <input type="text" name="surname" value="<%=author.getSurname()%>">
-    <input type="email" name="email" value="<%=author.getEmail()%>">
-    <input type="number" name="age" value="<%=author.getAge()%>">
+<form method="post" action="/authors/edit" enctype="multipart/form-data">
+    <input type="file" name="profilePic">
+    <input type="hidden" name="authorId" value="<%=author.getId()%>"><br>
+    <input type="text" name="name" value="<%=author.getName()%>"><br>
+    <input type="text" name="surname" value="<%=author.getSurname()%>"><br>
+    <input type="email" name="email" value="<%=author.getEmail()%>"><br>
+    <input type="number" name="age" value="<%=author.getAge()%>"><br>
+    <br>
     <input type="submit" value="update">
 </form>
 

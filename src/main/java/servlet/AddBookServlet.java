@@ -12,10 +12,19 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/books/add")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 100
+
+)
 public class AddBookServlet extends HttpServlet {
     private final AuthorManager authorManager = new AuthorManager();
 
     private final BookManager bookManager = new BookManager();
+
+    private static final String IMAGE_PATH = "C:\\Users\\lenovo\\IdeaProjects\\myLibrary\\projectImages\\";
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,14 +40,22 @@ public class AddBookServlet extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         int authorId = Integer.parseInt(request.getParameter("authorId"));
 
+        Part profilePic = request.getPart("profilePic");
+        String filename = null;
+        if (profilePic.getSize() != 0) {
+            long nanoTime = System.nanoTime();
+            filename = nanoTime + "_" + profilePic.getSubmittedFileName();
+            profilePic.write(IMAGE_PATH + filename);
+        }
         Book book = Book.builder()
                 .title(title)
                 .description(description)
                 .price(price)
                 .author(authorManager.getById(authorId))
+                .profilePic(filename)
                 .build();
         bookManager.add(book);
 
-        response.sendRedirect( "/books");
+        response.sendRedirect("/books");
     }
 }

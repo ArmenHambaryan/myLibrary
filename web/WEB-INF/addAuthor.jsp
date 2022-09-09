@@ -13,12 +13,15 @@
 <body>
 Please input Author`s data:
 <br>
-<form action="/authors/add" method="post">
+<form action="/authors/add" method="post" enctype="multipart/form-data">
     <input type="text" name="name" placeholder="input only name"><br>
     <input type="text" name="surname" placeholder="input only surname"><br>
     <input type="email" name="email" placeholder="input only email"><br>
     <input type="number" name="age" placeholder="input your age">
     <input type="submit" value="ADD">
+<br>
+    Profile Picture:<br>
+    <input type="file" name="profilePic">
 
 </form>
 </body>
