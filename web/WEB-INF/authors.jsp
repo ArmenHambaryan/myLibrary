@@ -25,15 +25,13 @@
     </tr>
     <%
         for (Author author : authors) { %>
-
     <tr>
         <td>
             <% if (author.getProfilePic() == null || author.getProfilePic().length() == 0) {%>
-            <img src="/image/def.jpg" width="100">
+            <img src="/image/noImage.webp" width="100">
             <%} else { %>
             <img src="/getImage?profilePic=<%=author.getProfilePic()%>" width="100" />
             <% }%>
-
         </td>
         <td><%=author.getId()%>
         </td>
